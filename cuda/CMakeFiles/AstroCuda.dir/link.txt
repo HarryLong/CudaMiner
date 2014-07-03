@@ -1,0 +1,2 @@
+/usr/bin/ar cr libAstroCuda.a  CMakeFiles/AstroCuda.dir/./AstroCuda_generated_deviceQuery.cu.o
+/usr/bin/ranlib libAstroCuda.a

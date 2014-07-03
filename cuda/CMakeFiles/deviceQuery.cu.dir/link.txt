@@ -1,0 +1,2 @@
+/usr/bin/ar cr libdeviceQuery.cu.a  
+/usr/bin/ranlib libdeviceQuery.cu.a

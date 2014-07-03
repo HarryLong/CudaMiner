@@ -1,0 +1,4 @@
+cmake_minimum_required(VERSION 2.8)
+SET(EXECUTABLE "inputFileReader")
+ADD_EXECUTABLE(${EXECUTABLE} "inputfilereaderexec" "inputfilereader" "../inputfilemanager")
+

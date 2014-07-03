@@ -1,0 +1,3 @@
+cmake_minimum_required(VERSION 2.8)
+ADD_LIBRARY(${INPUT_READER_LIB_NAME} "inputfilereader" "../inputfilemanager")
+

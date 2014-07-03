@@ -1,0 +1,1 @@
+/home/harry/cuda-workspace/GPGPU2-Assignment/cuda/CMakeFiles/deviceQuery.cu.dir

@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp
+iostream
+-
+stdlib.h
+-
+time.h
+-
+inputfilemanager.h
+/home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.h
+
+/home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.h
+vector
+-
+
