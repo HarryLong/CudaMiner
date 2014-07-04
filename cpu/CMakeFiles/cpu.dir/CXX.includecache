@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/cpu/../common/miningdata.h
+vector
+-
+iostream
+-
+string
+-
+sstream
+-
+
+/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/cpu/cpuminer.cpp
+cpuminer.h
+/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/cpu/cpuminer.h
+string.h
+-
+iostream
+-
+cmath
+-
+
+/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/cpu/cpuminer.h
+../common/miningdata.h
+/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/cpu/../common/miningdata.h
+

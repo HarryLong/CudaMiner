@@ -1,0 +1,2 @@
+/usr/bin/ar cr libinputfilereader.a  CMakeFiles/inputfilereader.dir/inputfilereader.cpp.o CMakeFiles/inputfilereader.dir/__/inputfilemanager.cpp.o
+/usr/bin/ranlib libinputfilereader.a

@@ -1,0 +1,2 @@
+/usr/bin/ar cr libcuda.a  CMakeFiles/cuda.dir/./cuda_generated_deviceQuery.cu.o
+/usr/bin/ranlib libcuda.a

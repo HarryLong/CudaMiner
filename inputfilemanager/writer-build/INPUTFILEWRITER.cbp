@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="INPUTFILEWRITER" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="inputFileWriter">
+         <Option output="/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/inputFileWriter" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/Makefile&quot;  VERBOSE=1 inputFileWriter" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="inputFileWriter/fast">
+         <Option output="/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/inputFileWriter" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/Makefile&quot;  VERBOSE=1 inputFileWriter/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp">
+      </Unit>
+      <Unit filename="/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer/inputfilewriter.cpp">
+      </Unit>
+      <Unit filename="/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.h">
+      </Unit>
+      <Unit filename="/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer/inputfilewriter.h">
+      </Unit>
+      <Unit filename="/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/writer/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>
