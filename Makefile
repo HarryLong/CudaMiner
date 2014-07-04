@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/harry/cuda-workspace/GPGPU2-Assignment
+CMAKE_SOURCE_DIR = /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/harry/cuda-workspace/GPGPU2-Assignment
+CMAKE_BINARY_DIR = /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,9 +69,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -112,56 +112,43 @@ AstroMiner/fast:
 .PHONY : AstroMiner/fast
 
 #=============================================================================
-# Target rules for targets named AstroCuda
+# Target rules for targets named cpu
 
 # Build rule for target.
-AstroCuda: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 AstroCuda
-.PHONY : AstroCuda
+cpu: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 cpu
+.PHONY : cpu
 
 # fast build rule for target.
-AstroCuda/fast:
-	$(MAKE) -f cuda/CMakeFiles/AstroCuda.dir/build.make cuda/CMakeFiles/AstroCuda.dir/build
-.PHONY : AstroCuda/fast
+cpu/fast:
+	$(MAKE) -f cpu/CMakeFiles/cpu.dir/build.make cpu/CMakeFiles/cpu.dir/build
+.PHONY : cpu/fast
 
 #=============================================================================
-# Target rules for targets named inputreader
+# Target rules for targets named cuda
 
 # Build rule for target.
-inputreader: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 inputreader
-.PHONY : inputreader
+cuda: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 cuda
+.PHONY : cuda
 
 # fast build rule for target.
-inputreader/fast:
-	$(MAKE) -f inputfilemanager/reader/CMakeFiles/inputreader.dir/build.make inputfilemanager/reader/CMakeFiles/inputreader.dir/build
-.PHONY : inputreader/fast
+cuda/fast:
+	$(MAKE) -f cuda/CMakeFiles/cuda.dir/build.make cuda/CMakeFiles/cuda.dir/build
+.PHONY : cuda/fast
 
 #=============================================================================
-# Target rules for targets named readinputFile
+# Target rules for targets named inputfilereader
 
 # Build rule for target.
-readinputFile: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 readinputFile
-.PHONY : readinputFile
+inputfilereader: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 inputfilereader
+.PHONY : inputfilereader
 
 # fast build rule for target.
-readinputFile/fast:
-	$(MAKE) -f inputfilemanager/reader/CMakeFiles/readinputFile.dir/build.make inputfilemanager/reader/CMakeFiles/readinputFile.dir/build
-.PHONY : readinputFile/fast
-
-#=============================================================================
-# Target rules for targets named inputFileWriter
-
-# Build rule for target.
-inputFileWriter: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 inputFileWriter
-.PHONY : inputFileWriter
-
-# fast build rule for target.
-inputFileWriter/fast:
-	$(MAKE) -f inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/build.make inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/build
-.PHONY : inputFileWriter/fast
+inputfilereader/fast:
+	$(MAKE) -f inputfilemanager/reader/CMakeFiles/inputfilereader.dir/build.make inputfilemanager/reader/CMakeFiles/inputfilereader.dir/build
+.PHONY : inputfilereader/fast
 
 AstroMiner.o: AstroMiner.cpp.o
 .PHONY : AstroMiner.o
@@ -196,10 +183,9 @@ help:
 	@echo "... AstroMiner"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... AstroCuda"
-	@echo "... inputreader"
-	@echo "... readinputFile"
-	@echo "... inputFileWriter"
+	@echo "... cpu"
+	@echo "... cuda"
+	@echo "... inputfilereader"
 	@echo "... AstroMiner.o"
 	@echo "... AstroMiner.i"
 	@echo "... AstroMiner.s"

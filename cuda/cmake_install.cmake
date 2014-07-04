@@ -1,4 +1,4 @@
-# Install script for directory: /home/harry/cuda-workspace/GPGPU2-Assignment/cuda
+# Install script for directory: /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/cuda
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

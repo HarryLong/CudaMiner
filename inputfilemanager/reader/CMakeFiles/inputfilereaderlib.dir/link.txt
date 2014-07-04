@@ -1,2 +1,0 @@
-/usr/bin/ar cr libinputfilereaderlib.a  CMakeFiles/inputfilereaderlib.dir/home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp.o
-/usr/bin/ranlib libinputfilereaderlib.a

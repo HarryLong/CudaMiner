@@ -11,11 +11,11 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/2.8.11.2/CMakeCXXCompiler.cmake"
   "CMakeFiles/2.8.11.2/CMakeSystem.cmake"
   "CMakeLists.txt"
-  "cuda/CMakeFiles/AstroCuda.dir/AstroCuda_generated_deviceQuery.cu.o.depend"
+  "cpu/CMakeLists.txt"
+  "cuda/CMakeFiles/cuda.dir/cuda_generated_deviceQuery.cu.o.depend"
   "cuda/CMakeLists.txt"
   "inputfilemanager/CMakeLists.txt"
   "inputfilemanager/reader/CMakeLists.txt"
-  "inputfilemanager/writer/CMakeLists.txt"
   "/usr/share/cmake-2.8/Modules/CMakeCInformation.cmake"
   "/usr/share/cmake-2.8/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake-2.8/Modules/CMakeCommonLanguageInclude.cmake"
@@ -45,17 +45,16 @@ SET(CMAKE_MAKEFILE_OUTPUTS
 # Byproducts of CMake generate step:
 SET(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "cpu/CMakeFiles/CMakeDirectoryInformation.cmake"
   "cuda/CMakeFiles/CMakeDirectoryInformation.cmake"
   "inputfilemanager/CMakeFiles/CMakeDirectoryInformation.cmake"
   "inputfilemanager/reader/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "inputfilemanager/writer/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 SET(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/AstroMiner.dir/DependInfo.cmake"
-  "cuda/CMakeFiles/AstroCuda.dir/DependInfo.cmake"
-  "inputfilemanager/reader/CMakeFiles/inputreader.dir/DependInfo.cmake"
-  "inputfilemanager/reader/CMakeFiles/readinputFile.dir/DependInfo.cmake"
-  "inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/DependInfo.cmake"
+  "cpu/CMakeFiles/cpu.dir/DependInfo.cmake"
+  "cuda/CMakeFiles/cuda.dir/DependInfo.cmake"
+  "inputfilemanager/reader/CMakeFiles/inputfilereader.dir/DependInfo.cmake"
   )

@@ -1,4 +1,4 @@
-# Install script for directory: /home/harry/cuda-workspace/GPGPU2-Assignment
+# Install script for directory: /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,8 +34,9 @@ ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  INCLUDE("/home/harry/cuda-workspace/GPGPU2-Assignment/cuda/cmake_install.cmake")
-  INCLUDE("/home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/cmake_install.cmake")
+  INCLUDE("/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/cpu/cmake_install.cmake")
+  INCLUDE("/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/cuda/cmake_install.cmake")
+  INCLUDE("/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 
@@ -45,7 +46,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/home/harry/cuda-workspace/GPGPU2-Assignment/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/home/harry/cuda-workspace/GPGPU2-Assignment/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

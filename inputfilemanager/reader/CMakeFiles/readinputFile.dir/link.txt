@@ -1,1 +1,0 @@
-/usr/bin/c++       CMakeFiles/readinputFile.dir/inputfilereader.cpp.o CMakeFiles/readinputFile.dir/home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp.o  -o readinputFile -rdynamic 

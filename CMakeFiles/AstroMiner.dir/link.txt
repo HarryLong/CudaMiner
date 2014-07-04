@@ -1,1 +1,1 @@
-/usr/bin/c++       CMakeFiles/AstroMiner.dir/AstroMiner.cpp.o  -o AstroMiner -rdynamic -lcudart cuda/libAstroCuda.a -lcudart 
+/usr/bin/c++       CMakeFiles/AstroMiner.dir/AstroMiner.cpp.o  -o AstroMiner -rdynamic -lcudart cuda/libcuda.a cpu/libcpu.a inputfilemanager/reader/libinputfilereader.a -lcudart 

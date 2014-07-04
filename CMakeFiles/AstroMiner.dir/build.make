@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/harry/cuda-workspace/GPGPU2-Assignment
+CMAKE_SOURCE_DIR = /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/harry/cuda-workspace/GPGPU2-Assignment
+CMAKE_BINARY_DIR = /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment
 
 # Include any dependencies generated for this target.
 include CMakeFiles/AstroMiner.dir/depend.make
@@ -51,17 +51,17 @@ include CMakeFiles/AstroMiner.dir/flags.make
 
 CMakeFiles/AstroMiner.dir/AstroMiner.cpp.o: CMakeFiles/AstroMiner.dir/flags.make
 CMakeFiles/AstroMiner.dir/AstroMiner.cpp.o: AstroMiner.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/AstroMiner.dir/AstroMiner.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/AstroMiner.dir/AstroMiner.cpp.o -c /home/harry/cuda-workspace/GPGPU2-Assignment/AstroMiner.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/AstroMiner.dir/AstroMiner.cpp.o -c /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/AstroMiner.cpp
 
 CMakeFiles/AstroMiner.dir/AstroMiner.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/AstroMiner.dir/AstroMiner.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/harry/cuda-workspace/GPGPU2-Assignment/AstroMiner.cpp > CMakeFiles/AstroMiner.dir/AstroMiner.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/AstroMiner.cpp > CMakeFiles/AstroMiner.dir/AstroMiner.cpp.i
 
 CMakeFiles/AstroMiner.dir/AstroMiner.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/AstroMiner.dir/AstroMiner.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/harry/cuda-workspace/GPGPU2-Assignment/AstroMiner.cpp -o CMakeFiles/AstroMiner.dir/AstroMiner.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/AstroMiner.cpp -o CMakeFiles/AstroMiner.dir/AstroMiner.cpp.s
 
 CMakeFiles/AstroMiner.dir/AstroMiner.cpp.o.requires:
 .PHONY : CMakeFiles/AstroMiner.dir/AstroMiner.cpp.o.requires
@@ -82,7 +82,9 @@ AstroMiner_EXTERNAL_OBJECTS =
 AstroMiner: CMakeFiles/AstroMiner.dir/AstroMiner.cpp.o
 AstroMiner: CMakeFiles/AstroMiner.dir/build.make
 AstroMiner: /usr/lib/x86_64-linux-gnu/libcudart.so
-AstroMiner: cuda/libAstroCuda.a
+AstroMiner: cuda/libcuda.a
+AstroMiner: cpu/libcpu.a
+AstroMiner: inputfilemanager/reader/libinputfilereader.a
 AstroMiner: /usr/lib/x86_64-linux-gnu/libcudart.so
 AstroMiner: CMakeFiles/AstroMiner.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable AstroMiner"
@@ -100,6 +102,6 @@ CMakeFiles/AstroMiner.dir/clean:
 .PHONY : CMakeFiles/AstroMiner.dir/clean
 
 CMakeFiles/AstroMiner.dir/depend:
-	cd /home/harry/cuda-workspace/GPGPU2-Assignment && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/harry/cuda-workspace/GPGPU2-Assignment /home/harry/cuda-workspace/GPGPU2-Assignment /home/harry/cuda-workspace/GPGPU2-Assignment /home/harry/cuda-workspace/GPGPU2-Assignment /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles/AstroMiner.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles/AstroMiner.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/AstroMiner.dir/depend
 

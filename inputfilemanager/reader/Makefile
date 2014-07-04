@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/reader
+CMAKE_SOURCE_DIR = /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/reader
+CMAKE_BINARY_DIR = /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,14 +69,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/reader/CMakeFiles /home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/reader/CMakeFiles/progress.marks
-	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/reader/CMakeFiles 0
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(CMAKE_COMMAND) -E cmake_progress_start /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/reader/CMakeFiles/progress.marks
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f CMakeFiles/Makefile2 inputfilemanager/reader/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) -f CMakeFiles/Makefile2 clean
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f CMakeFiles/Makefile2 inputfilemanager/reader/clean
 .PHONY : clean
 
 # The main clean target
@@ -85,62 +85,63 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f CMakeFiles/Makefile2 inputfilemanager/reader/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f CMakeFiles/Makefile2 inputfilemanager/reader/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named inputFileReader
+# Convenience name for target.
+inputfilemanager/reader/CMakeFiles/inputfilereader.dir/rule:
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f CMakeFiles/Makefile2 inputfilemanager/reader/CMakeFiles/inputfilereader.dir/rule
+.PHONY : inputfilemanager/reader/CMakeFiles/inputfilereader.dir/rule
 
-# Build rule for target.
-inputFileReader: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 inputFileReader
-.PHONY : inputFileReader
+# Convenience name for target.
+inputfilereader: inputfilemanager/reader/CMakeFiles/inputfilereader.dir/rule
+.PHONY : inputfilereader
 
 # fast build rule for target.
-inputFileReader/fast:
-	$(MAKE) -f CMakeFiles/inputFileReader.dir/build.make CMakeFiles/inputFileReader.dir/build
-.PHONY : inputFileReader/fast
+inputfilereader/fast:
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f inputfilemanager/reader/CMakeFiles/inputfilereader.dir/build.make inputfilemanager/reader/CMakeFiles/inputfilereader.dir/build
+.PHONY : inputfilereader/fast
 
-home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.o: home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp.o
-.PHONY : home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.o
+__/inputfilemanager.o: __/inputfilemanager.cpp.o
+.PHONY : __/inputfilemanager.o
 
 # target to build an object file
-home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp.o:
-	$(MAKE) -f CMakeFiles/inputFileReader.dir/build.make CMakeFiles/inputFileReader.dir/home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp.o
-.PHONY : home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp.o
+__/inputfilemanager.cpp.o:
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f inputfilemanager/reader/CMakeFiles/inputfilereader.dir/build.make inputfilemanager/reader/CMakeFiles/inputfilereader.dir/__/inputfilemanager.cpp.o
+.PHONY : __/inputfilemanager.cpp.o
 
-home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.i: home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp.i
-.PHONY : home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.i
+__/inputfilemanager.i: __/inputfilemanager.cpp.i
+.PHONY : __/inputfilemanager.i
 
 # target to preprocess a source file
-home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp.i:
-	$(MAKE) -f CMakeFiles/inputFileReader.dir/build.make CMakeFiles/inputFileReader.dir/home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp.i
-.PHONY : home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp.i
+__/inputfilemanager.cpp.i:
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f inputfilemanager/reader/CMakeFiles/inputfilereader.dir/build.make inputfilemanager/reader/CMakeFiles/inputfilereader.dir/__/inputfilemanager.cpp.i
+.PHONY : __/inputfilemanager.cpp.i
 
-home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.s: home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp.s
-.PHONY : home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.s
+__/inputfilemanager.s: __/inputfilemanager.cpp.s
+.PHONY : __/inputfilemanager.s
 
 # target to generate assembly for a file
-home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp.s:
-	$(MAKE) -f CMakeFiles/inputFileReader.dir/build.make CMakeFiles/inputFileReader.dir/home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp.s
-.PHONY : home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp.s
+__/inputfilemanager.cpp.s:
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f inputfilemanager/reader/CMakeFiles/inputfilereader.dir/build.make inputfilemanager/reader/CMakeFiles/inputfilereader.dir/__/inputfilemanager.cpp.s
+.PHONY : __/inputfilemanager.cpp.s
 
 inputfilereader.o: inputfilereader.cpp.o
 .PHONY : inputfilereader.o
 
 # target to build an object file
 inputfilereader.cpp.o:
-	$(MAKE) -f CMakeFiles/inputFileReader.dir/build.make CMakeFiles/inputFileReader.dir/inputfilereader.cpp.o
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f inputfilemanager/reader/CMakeFiles/inputfilereader.dir/build.make inputfilemanager/reader/CMakeFiles/inputfilereader.dir/inputfilereader.cpp.o
 .PHONY : inputfilereader.cpp.o
 
 inputfilereader.i: inputfilereader.cpp.i
@@ -148,7 +149,7 @@ inputfilereader.i: inputfilereader.cpp.i
 
 # target to preprocess a source file
 inputfilereader.cpp.i:
-	$(MAKE) -f CMakeFiles/inputFileReader.dir/build.make CMakeFiles/inputFileReader.dir/inputfilereader.cpp.i
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f inputfilemanager/reader/CMakeFiles/inputfilereader.dir/build.make inputfilemanager/reader/CMakeFiles/inputfilereader.dir/inputfilereader.cpp.i
 .PHONY : inputfilereader.cpp.i
 
 inputfilereader.s: inputfilereader.cpp.s
@@ -156,32 +157,8 @@ inputfilereader.s: inputfilereader.cpp.s
 
 # target to generate assembly for a file
 inputfilereader.cpp.s:
-	$(MAKE) -f CMakeFiles/inputFileReader.dir/build.make CMakeFiles/inputFileReader.dir/inputfilereader.cpp.s
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f inputfilemanager/reader/CMakeFiles/inputfilereader.dir/build.make inputfilemanager/reader/CMakeFiles/inputfilereader.dir/inputfilereader.cpp.s
 .PHONY : inputfilereader.cpp.s
-
-inputfilereaderexec.o: inputfilereaderexec.cpp.o
-.PHONY : inputfilereaderexec.o
-
-# target to build an object file
-inputfilereaderexec.cpp.o:
-	$(MAKE) -f CMakeFiles/inputFileReader.dir/build.make CMakeFiles/inputFileReader.dir/inputfilereaderexec.cpp.o
-.PHONY : inputfilereaderexec.cpp.o
-
-inputfilereaderexec.i: inputfilereaderexec.cpp.i
-.PHONY : inputfilereaderexec.i
-
-# target to preprocess a source file
-inputfilereaderexec.cpp.i:
-	$(MAKE) -f CMakeFiles/inputFileReader.dir/build.make CMakeFiles/inputFileReader.dir/inputfilereaderexec.cpp.i
-.PHONY : inputfilereaderexec.cpp.i
-
-inputfilereaderexec.s: inputfilereaderexec.cpp.s
-.PHONY : inputfilereaderexec.s
-
-# target to generate assembly for a file
-inputfilereaderexec.cpp.s:
-	$(MAKE) -f CMakeFiles/inputFileReader.dir/build.make CMakeFiles/inputFileReader.dir/inputfilereaderexec.cpp.s
-.PHONY : inputfilereaderexec.cpp.s
 
 # Help Target
 help:
@@ -190,17 +167,14 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... inputFileReader"
+	@echo "... inputfilereader"
 	@echo "... rebuild_cache"
-	@echo "... home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.o"
-	@echo "... home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.i"
-	@echo "... home/harry/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.s"
+	@echo "... __/inputfilemanager.o"
+	@echo "... __/inputfilemanager.i"
+	@echo "... __/inputfilemanager.s"
 	@echo "... inputfilereader.o"
 	@echo "... inputfilereader.i"
 	@echo "... inputfilereader.s"
-	@echo "... inputfilereaderexec.o"
-	@echo "... inputfilereaderexec.i"
-	@echo "... inputfilereaderexec.s"
 .PHONY : help
 
 
@@ -212,6 +186,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <iostream>
+#include <string>
+#include <sstream>
 
 #define DOWN 'D' // for the path
 #define RIGHT 'R' // for the path
@@ -32,8 +34,53 @@ struct Path{
 
 struct Grid{
     int length,width;
-    float** data;
+    float** data; // [length][width]
     int getPathLength(){ return (length-1+width-1); } // -1 as we start from point [0,0] therefore removing a step in each dimension
+    void print()
+    {
+        if(length < 50 && width < 50)
+        {
+            for(int x = 0; x < length; x++)
+            {
+                if(x == 0)
+                    std::cout << "|";
+                std::cout << "------|";
+            }
+            std::cout << std::endl;
+            for(int y = 0; y < width; y++)
+            {
+                for(int x = 0; x < length; x++)
+                {
+                    if(x == 0)
+                        std::cout << "|";
+                    std::stringstream ss (std::stringstream::in | std::stringstream::out);
+                    ss << data[x][y];
+                    std::string value(ss.str());
+                    value.resize(6,' ');
+                    std:: cout << value << "|";
+                }
+                std::cout << std::endl;
+                for(int x = 0; x < length; x++)
+                {
+                    if(x == 0)
+                        std::cout << "|";
+                    std::cout << "      |";
+                }
+                std::cout << std::endl;
+                for(int x = 0; x < length; x++)
+                {
+                    if(x == 0)
+                        std::cout << "|";
+                    std::cout << "------|";
+                }
+                std::cout << std::endl;
+            }
+        }
+        else
+        {
+            std::cout << "!GRID TOO LARGE!" << std::endl;
+        }
+    }
 };
 
 struct BaseStation{

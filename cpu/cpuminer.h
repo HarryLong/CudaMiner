@@ -12,6 +12,7 @@ public:
     void mine();
     void performBinning();
     Path findBestPath(float& value);
+    Grid getGrid();
 
 protected:
     void generatePermutations();

@@ -47,19 +47,21 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/harry/cuda-workspace/GPGPU2-Assignment
+CMAKE_SOURCE_DIR = /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/harry/cuda-workspace/GPGPU2-Assignment
+CMAKE_BINARY_DIR = /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment
 
 #=============================================================================
 # Target rules for target CMakeFiles/AstroMiner.dir
 
 # All Build rule for target.
-CMakeFiles/AstroMiner.dir/all: cuda/CMakeFiles/AstroCuda.dir/all
+CMakeFiles/AstroMiner.dir/all: cpu/CMakeFiles/cpu.dir/all
+CMakeFiles/AstroMiner.dir/all: cuda/CMakeFiles/cuda.dir/all
+CMakeFiles/AstroMiner.dir/all: inputfilemanager/reader/CMakeFiles/inputfilereader.dir/all
 	$(MAKE) -f CMakeFiles/AstroMiner.dir/build.make CMakeFiles/AstroMiner.dir/depend
 	$(MAKE) -f CMakeFiles/AstroMiner.dir/build.make CMakeFiles/AstroMiner.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles  2
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles  1
 	@echo "Built target AstroMiner"
 .PHONY : CMakeFiles/AstroMiner.dir/all
 
@@ -69,9 +71,9 @@ all: CMakeFiles/AstroMiner.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/AstroMiner.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/AstroMiner.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles 0
 .PHONY : CMakeFiles/AstroMiner.dir/rule
 
 # Convenience name for target.
@@ -88,14 +90,64 @@ clean: CMakeFiles/AstroMiner.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Directory level rules for directory cpu
+
+# Convenience name for "all" pass in the directory.
+cpu/all: cpu/CMakeFiles/cpu.dir/all
+.PHONY : cpu/all
+
+# Convenience name for "clean" pass in the directory.
+cpu/clean: cpu/CMakeFiles/cpu.dir/clean
+.PHONY : cpu/clean
+
+# Convenience name for "preinstall" pass in the directory.
+cpu/preinstall:
+.PHONY : cpu/preinstall
+
+#=============================================================================
+# Target rules for target cpu/CMakeFiles/cpu.dir
+
+# All Build rule for target.
+cpu/CMakeFiles/cpu.dir/all:
+	$(MAKE) -f cpu/CMakeFiles/cpu.dir/build.make cpu/CMakeFiles/cpu.dir/depend
+	$(MAKE) -f cpu/CMakeFiles/cpu.dir/build.make cpu/CMakeFiles/cpu.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles  2 3
+	@echo "Built target cpu"
+.PHONY : cpu/CMakeFiles/cpu.dir/all
+
+# Include target in all.
+all: cpu/CMakeFiles/cpu.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+cpu/CMakeFiles/cpu.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 cpu/CMakeFiles/cpu.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles 0
+.PHONY : cpu/CMakeFiles/cpu.dir/rule
+
+# Convenience name for target.
+cpu: cpu/CMakeFiles/cpu.dir/rule
+.PHONY : cpu
+
+# clean rule for target.
+cpu/CMakeFiles/cpu.dir/clean:
+	$(MAKE) -f cpu/CMakeFiles/cpu.dir/build.make cpu/CMakeFiles/cpu.dir/clean
+.PHONY : cpu/CMakeFiles/cpu.dir/clean
+
+# clean rule for target.
+clean: cpu/CMakeFiles/cpu.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Directory level rules for directory cuda
 
 # Convenience name for "all" pass in the directory.
-cuda/all: cuda/CMakeFiles/AstroCuda.dir/all
+cuda/all: cuda/CMakeFiles/cuda.dir/all
 .PHONY : cuda/all
 
 # Convenience name for "clean" pass in the directory.
-cuda/clean: cuda/CMakeFiles/AstroCuda.dir/clean
+cuda/clean: cuda/CMakeFiles/cuda.dir/clean
 .PHONY : cuda/clean
 
 # Convenience name for "preinstall" pass in the directory.
@@ -103,38 +155,38 @@ cuda/preinstall:
 .PHONY : cuda/preinstall
 
 #=============================================================================
-# Target rules for target cuda/CMakeFiles/AstroCuda.dir
+# Target rules for target cuda/CMakeFiles/cuda.dir
 
 # All Build rule for target.
-cuda/CMakeFiles/AstroCuda.dir/all:
-	$(MAKE) -f cuda/CMakeFiles/AstroCuda.dir/build.make cuda/CMakeFiles/AstroCuda.dir/depend
-	$(MAKE) -f cuda/CMakeFiles/AstroCuda.dir/build.make cuda/CMakeFiles/AstroCuda.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles  1
-	@echo "Built target AstroCuda"
-.PHONY : cuda/CMakeFiles/AstroCuda.dir/all
+cuda/CMakeFiles/cuda.dir/all:
+	$(MAKE) -f cuda/CMakeFiles/cuda.dir/build.make cuda/CMakeFiles/cuda.dir/depend
+	$(MAKE) -f cuda/CMakeFiles/cuda.dir/build.make cuda/CMakeFiles/cuda.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles  4
+	@echo "Built target cuda"
+.PHONY : cuda/CMakeFiles/cuda.dir/all
 
 # Include target in all.
-all: cuda/CMakeFiles/AstroCuda.dir/all
+all: cuda/CMakeFiles/cuda.dir/all
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-cuda/CMakeFiles/AstroCuda.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 cuda/CMakeFiles/AstroCuda.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles 0
-.PHONY : cuda/CMakeFiles/AstroCuda.dir/rule
+cuda/CMakeFiles/cuda.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 cuda/CMakeFiles/cuda.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles 0
+.PHONY : cuda/CMakeFiles/cuda.dir/rule
 
 # Convenience name for target.
-AstroCuda: cuda/CMakeFiles/AstroCuda.dir/rule
-.PHONY : AstroCuda
+cuda: cuda/CMakeFiles/cuda.dir/rule
+.PHONY : cuda
 
 # clean rule for target.
-cuda/CMakeFiles/AstroCuda.dir/clean:
-	$(MAKE) -f cuda/CMakeFiles/AstroCuda.dir/build.make cuda/CMakeFiles/AstroCuda.dir/clean
-.PHONY : cuda/CMakeFiles/AstroCuda.dir/clean
+cuda/CMakeFiles/cuda.dir/clean:
+	$(MAKE) -f cuda/CMakeFiles/cuda.dir/build.make cuda/CMakeFiles/cuda.dir/clean
+.PHONY : cuda/CMakeFiles/cuda.dir/clean
 
 # clean rule for target.
-clean: cuda/CMakeFiles/AstroCuda.dir/clean
+clean: cuda/CMakeFiles/cuda.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -142,30 +194,25 @@ clean: cuda/CMakeFiles/AstroCuda.dir/clean
 
 # Convenience name for "all" pass in the directory.
 inputfilemanager/all: inputfilemanager/reader/all
-inputfilemanager/all: inputfilemanager/writer/all
 .PHONY : inputfilemanager/all
 
 # Convenience name for "clean" pass in the directory.
 inputfilemanager/clean: inputfilemanager/reader/clean
-inputfilemanager/clean: inputfilemanager/writer/clean
 .PHONY : inputfilemanager/clean
 
 # Convenience name for "preinstall" pass in the directory.
 inputfilemanager/preinstall: inputfilemanager/reader/preinstall
-inputfilemanager/preinstall: inputfilemanager/writer/preinstall
 .PHONY : inputfilemanager/preinstall
 
 #=============================================================================
 # Directory level rules for directory inputfilemanager/reader
 
 # Convenience name for "all" pass in the directory.
-inputfilemanager/reader/all: inputfilemanager/reader/CMakeFiles/inputreader.dir/all
-inputfilemanager/reader/all: inputfilemanager/reader/CMakeFiles/readinputFile.dir/all
+inputfilemanager/reader/all: inputfilemanager/reader/CMakeFiles/inputfilereader.dir/all
 .PHONY : inputfilemanager/reader/all
 
 # Convenience name for "clean" pass in the directory.
-inputfilemanager/reader/clean: inputfilemanager/reader/CMakeFiles/inputreader.dir/clean
-inputfilemanager/reader/clean: inputfilemanager/reader/CMakeFiles/readinputFile.dir/clean
+inputfilemanager/reader/clean: inputfilemanager/reader/CMakeFiles/inputfilereader.dir/clean
 .PHONY : inputfilemanager/reader/clean
 
 # Convenience name for "preinstall" pass in the directory.
@@ -173,123 +220,38 @@ inputfilemanager/reader/preinstall:
 .PHONY : inputfilemanager/reader/preinstall
 
 #=============================================================================
-# Target rules for target inputfilemanager/reader/CMakeFiles/inputreader.dir
+# Target rules for target inputfilemanager/reader/CMakeFiles/inputfilereader.dir
 
 # All Build rule for target.
-inputfilemanager/reader/CMakeFiles/inputreader.dir/all:
-	$(MAKE) -f inputfilemanager/reader/CMakeFiles/inputreader.dir/build.make inputfilemanager/reader/CMakeFiles/inputreader.dir/depend
-	$(MAKE) -f inputfilemanager/reader/CMakeFiles/inputreader.dir/build.make inputfilemanager/reader/CMakeFiles/inputreader.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles  5 6
-	@echo "Built target inputreader"
-.PHONY : inputfilemanager/reader/CMakeFiles/inputreader.dir/all
+inputfilemanager/reader/CMakeFiles/inputfilereader.dir/all:
+	$(MAKE) -f inputfilemanager/reader/CMakeFiles/inputfilereader.dir/build.make inputfilemanager/reader/CMakeFiles/inputfilereader.dir/depend
+	$(MAKE) -f inputfilemanager/reader/CMakeFiles/inputfilereader.dir/build.make inputfilemanager/reader/CMakeFiles/inputfilereader.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles  5 6
+	@echo "Built target inputfilereader"
+.PHONY : inputfilemanager/reader/CMakeFiles/inputfilereader.dir/all
 
 # Include target in all.
-all: inputfilemanager/reader/CMakeFiles/inputreader.dir/all
+all: inputfilemanager/reader/CMakeFiles/inputfilereader.dir/all
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-inputfilemanager/reader/CMakeFiles/inputreader.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 inputfilemanager/reader/CMakeFiles/inputreader.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles 0
-.PHONY : inputfilemanager/reader/CMakeFiles/inputreader.dir/rule
+inputfilemanager/reader/CMakeFiles/inputfilereader.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 inputfilemanager/reader/CMakeFiles/inputfilereader.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles 0
+.PHONY : inputfilemanager/reader/CMakeFiles/inputfilereader.dir/rule
 
 # Convenience name for target.
-inputreader: inputfilemanager/reader/CMakeFiles/inputreader.dir/rule
-.PHONY : inputreader
+inputfilereader: inputfilemanager/reader/CMakeFiles/inputfilereader.dir/rule
+.PHONY : inputfilereader
 
 # clean rule for target.
-inputfilemanager/reader/CMakeFiles/inputreader.dir/clean:
-	$(MAKE) -f inputfilemanager/reader/CMakeFiles/inputreader.dir/build.make inputfilemanager/reader/CMakeFiles/inputreader.dir/clean
-.PHONY : inputfilemanager/reader/CMakeFiles/inputreader.dir/clean
+inputfilemanager/reader/CMakeFiles/inputfilereader.dir/clean:
+	$(MAKE) -f inputfilemanager/reader/CMakeFiles/inputfilereader.dir/build.make inputfilemanager/reader/CMakeFiles/inputfilereader.dir/clean
+.PHONY : inputfilemanager/reader/CMakeFiles/inputfilereader.dir/clean
 
 # clean rule for target.
-clean: inputfilemanager/reader/CMakeFiles/inputreader.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target inputfilemanager/reader/CMakeFiles/readinputFile.dir
-
-# All Build rule for target.
-inputfilemanager/reader/CMakeFiles/readinputFile.dir/all:
-	$(MAKE) -f inputfilemanager/reader/CMakeFiles/readinputFile.dir/build.make inputfilemanager/reader/CMakeFiles/readinputFile.dir/depend
-	$(MAKE) -f inputfilemanager/reader/CMakeFiles/readinputFile.dir/build.make inputfilemanager/reader/CMakeFiles/readinputFile.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles  7 8
-	@echo "Built target readinputFile"
-.PHONY : inputfilemanager/reader/CMakeFiles/readinputFile.dir/all
-
-# Include target in all.
-all: inputfilemanager/reader/CMakeFiles/readinputFile.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-inputfilemanager/reader/CMakeFiles/readinputFile.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 inputfilemanager/reader/CMakeFiles/readinputFile.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles 0
-.PHONY : inputfilemanager/reader/CMakeFiles/readinputFile.dir/rule
-
-# Convenience name for target.
-readinputFile: inputfilemanager/reader/CMakeFiles/readinputFile.dir/rule
-.PHONY : readinputFile
-
-# clean rule for target.
-inputfilemanager/reader/CMakeFiles/readinputFile.dir/clean:
-	$(MAKE) -f inputfilemanager/reader/CMakeFiles/readinputFile.dir/build.make inputfilemanager/reader/CMakeFiles/readinputFile.dir/clean
-.PHONY : inputfilemanager/reader/CMakeFiles/readinputFile.dir/clean
-
-# clean rule for target.
-clean: inputfilemanager/reader/CMakeFiles/readinputFile.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Directory level rules for directory inputfilemanager/writer
-
-# Convenience name for "all" pass in the directory.
-inputfilemanager/writer/all: inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/all
-.PHONY : inputfilemanager/writer/all
-
-# Convenience name for "clean" pass in the directory.
-inputfilemanager/writer/clean: inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/clean
-.PHONY : inputfilemanager/writer/clean
-
-# Convenience name for "preinstall" pass in the directory.
-inputfilemanager/writer/preinstall:
-.PHONY : inputfilemanager/writer/preinstall
-
-#=============================================================================
-# Target rules for target inputfilemanager/writer/CMakeFiles/inputFileWriter.dir
-
-# All Build rule for target.
-inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/all:
-	$(MAKE) -f inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/build.make inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/depend
-	$(MAKE) -f inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/build.make inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles  3 4
-	@echo "Built target inputFileWriter"
-.PHONY : inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/all
-
-# Include target in all.
-all: inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles 0
-.PHONY : inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/rule
-
-# Convenience name for target.
-inputFileWriter: inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/rule
-.PHONY : inputFileWriter
-
-# clean rule for target.
-inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/clean:
-	$(MAKE) -f inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/build.make inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/clean
-.PHONY : inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/clean
-
-# clean rule for target.
-clean: inputfilemanager/writer/CMakeFiles/inputFileWriter.dir/clean
+clean: inputfilemanager/reader/CMakeFiles/inputfilereader.dir/clean
 .PHONY : clean
 
 #=============================================================================

@@ -9,7 +9,7 @@
 class InputFileReader : public InputFileManager
 {
 public:
-    InputFileReader(std::string filename);
+    bool parse(std::string filename);
 
 private:
     float readFloat(std::ifstream& file);

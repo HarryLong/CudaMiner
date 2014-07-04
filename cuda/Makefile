@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/harry/cuda-workspace/GPGPU2-Assignment
+CMAKE_SOURCE_DIR = /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/harry/cuda-workspace/GPGPU2-Assignment
+CMAKE_BINARY_DIR = /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,14 +69,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/harry/cuda-workspace/GPGPU2-Assignment && $(CMAKE_COMMAND) -E cmake_progress_start /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles /home/harry/cuda-workspace/GPGPU2-Assignment/cuda/CMakeFiles/progress.marks
-	cd /home/harry/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f CMakeFiles/Makefile2 cuda/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/cuda-workspace/GPGPU2-Assignment/CMakeFiles 0
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(CMAKE_COMMAND) -E cmake_progress_start /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/cuda/CMakeFiles/progress.marks
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f CMakeFiles/Makefile2 cuda/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/harry/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f CMakeFiles/Makefile2 cuda/clean
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f CMakeFiles/Makefile2 cuda/clean
 .PHONY : clean
 
 # The main clean target
@@ -85,32 +85,32 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/harry/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f CMakeFiles/Makefile2 cuda/preinstall
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f CMakeFiles/Makefile2 cuda/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/harry/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f CMakeFiles/Makefile2 cuda/preinstall
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f CMakeFiles/Makefile2 cuda/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/harry/cuda-workspace/GPGPU2-Assignment && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
-cuda/CMakeFiles/AstroCuda.dir/rule:
-	cd /home/harry/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f CMakeFiles/Makefile2 cuda/CMakeFiles/AstroCuda.dir/rule
-.PHONY : cuda/CMakeFiles/AstroCuda.dir/rule
+cuda/CMakeFiles/cuda.dir/rule:
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f CMakeFiles/Makefile2 cuda/CMakeFiles/cuda.dir/rule
+.PHONY : cuda/CMakeFiles/cuda.dir/rule
 
 # Convenience name for target.
-AstroCuda: cuda/CMakeFiles/AstroCuda.dir/rule
-.PHONY : AstroCuda
+cuda: cuda/CMakeFiles/cuda.dir/rule
+.PHONY : cuda
 
 # fast build rule for target.
-AstroCuda/fast:
-	cd /home/harry/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f cuda/CMakeFiles/AstroCuda.dir/build.make cuda/CMakeFiles/AstroCuda.dir/build
-.PHONY : AstroCuda/fast
+cuda/fast:
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(MAKE) -f cuda/CMakeFiles/cuda.dir/build.make cuda/CMakeFiles/cuda.dir/build
+.PHONY : cuda/fast
 
 # Help Target
 help:
@@ -118,7 +118,7 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... AstroCuda"
+	@echo "... cuda"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 .PHONY : help
@@ -132,6 +132,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/harry/cuda-workspace/GPGPU2-Assignment && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/harry/workspaces/cuda-workspace/GPGPU2-Assignment && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
