@@ -1,4 +1,0 @@
-/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/CMakeFiles/AstroMiner.dir
-/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/cpu/CMakeFiles/cpu.dir
-/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/cuda/CMakeFiles/cuda.dir
-/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/reader/CMakeFiles/inputfilereader.dir
