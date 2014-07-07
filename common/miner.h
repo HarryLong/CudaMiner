@@ -10,7 +10,7 @@
 
 class Miner{
 public:
-    Miner(MiningData miningData, float stepSize);
+    Miner(MiningData * miningData, float stepSize);
     virtual ~Miner();
     virtual Grid getGrid() {return grid;}
     virtual void performBinning() = 0;
@@ -18,7 +18,7 @@ public:
     virtual void initializeGrid();
 
 protected:
-    MiningData miningData;
+    MiningData* miningData;
     Grid grid;
     float stepSize;
     std::vector<Path> permutations;

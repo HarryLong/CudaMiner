@@ -14,9 +14,14 @@ int main(int argc, char *argv[])
     char* filename = argv[FILENAME_ARG_IDX];
 
     std::cout << "Reading in input file: " << filename << std::endl;
-
-    InputFileReader reader(filename);
-    reader.printMinerals();
+    
+    InputFileReader reader;
+    if(!reader.parse(filename))
+    {
+        std::cerr << "Unable to parse input file" << std::endl;
+        return 1;
+    }
+    reader.getMiningData()->print();
     return 0;
 }
 

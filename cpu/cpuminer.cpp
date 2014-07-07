@@ -1,79 +1,52 @@
 #include "cpuminer.h"
 
-#include <string.h>
 #include <iostream>
-#include <cmath>
 
-CPUMiner::CPUMiner(MiningData miningData, float stepSize) : miningData(miningData), stepSize(stepSize)
+#include <stdio.h>
+
+CPUMiner::CPUMiner(MiningData * miningData, float stepSize) : Miner(miningData, stepSize)
 {
+    initializeGrid();
 }
 
 CPUMiner::~CPUMiner()
 {
-    // Delete grid data
-    for(int i = 0; i < grid.length; ++i)
-    {
-        delete[] grid.data[i];
-    }
-    delete[] grid.data;
 
-    // Delete permutations
-    for(int i = 0; i < permutations.size(); ++i)
-    {
-        delete[] permutations[i].path;
-    }
-}
-
-void CPUMiner::initializeGrid()
-{
-    // Calculate the grid size
-    grid.length = ceil(miningData.base.x/stepSize)+1; // +1 for points x = 0
-    grid.width = ceil(miningData.base.y/stepSize)+1; // +1 for points y = 0
-DEBUG_MSG
-    grid.data = new float*[grid.length];
-DEBUG_MSG
-    for(int x = 0; x < grid.length; ++x)
-    {
-        grid.data[x] = new float[grid.width];
-        for(int y = 0; y < grid.width; y++)
-        {
-            grid.data[x][y] = .0f;
-        }
-    }
-    DEBUG_MSG
 }
 
 void CPUMiner::performBinning()
 {
-    for(std::vector<Mineral>::iterator it = miningData.minerals.begin(); it != miningData.minerals.end(); it++)
+    // Fill the grid with mineral data
+    for(int i = 0; i < miningData->nMinerals; i++)
     {
+        float x(miningData->data[i*3]);
+        float y(miningData->data[i*3+1]);
+        float value(miningData->data[i*3+2]);
+
         // First calculate the stop which is the closest to this point
-        int closestXStop = round(it->x/stepSize);
-        int closestYStop = round(it->y/stepSize);
+        int closestXStop = round(x/stepSize);
+        int closestYStop = round(y/stepSize);
 
-        float xDifference = fabs(it->x-(closestXStop*stepSize));
-        float yDifference = fabs(it->y-(closestYStop*stepSize));
+        float xDifference = fabs(x-(closestXStop*stepSize));
+        float yDifference = fabs(y-(closestYStop*stepSize));
+        bool reachable(sqrt(pow(xDifference,2)+pow(yDifference,2)) < stepSize);
 
-        if(sqrt(pow(xDifference,2)+pow(yDifference,2)) < stepSize) // Make sure it is reachable by the drone
+//        printf("Mineral: [%.4f,%.4f] -->  %.4f \n", x,y,value);
+//        printf("Closest stop: [%d,%d]\n",closestXStop,closestYStop);
+//        printf("X difference: [%.4f,%.4f]\n",xDifference,yDifference);
+//        printf("Current value: %.4f\n", grid.get(closestXStop, closestYStop));
+//        printf("Reachable: %d\n", reachable);
+//        printf("Index: %d | Current value: %.4f\n", grid.length*closestYStop + closestXStop, grid.get(closestXStop, closestYStop));
+
+        if(reachable) // Make sure it is reachable by the drone
         {
-            grid.data[closestXStop][closestYStop] += it->value;
+            grid.set(closestXStop,closestYStop,grid.get(closestXStop, closestYStop)+value);
         }
     }
 }
 
-
 Path CPUMiner::findBestPath(float& value)
 {
-    // Initialize the grid
-    std::cout << "Initializing grid...";
-    initializeGrid();
-    std::cout << "OK!" << std::endl;
-
-    // Fill the frid with mineral data
-    std::cout << "Filling grid with mineral data provided...";
-    performBinning();
-    std::cout << "OK!" << std::endl;
-
     // Generate all possible permutations
     std::cout << "Generating all possible grid permutations (Grid size: [" << grid.length << "," << grid.width << "]) ...";
     generatePermutations();
@@ -88,7 +61,7 @@ Path CPUMiner::findBestPath(float& value)
     {
         char* path = permutations[i].path;
         int x(0),y(0);
-        float pathValue(grid.data[x][y]); // It will always take the minerals from its current position
+        float pathValue(grid.get(x,y)); // It will always take the minerals from its current position
         for(int i = 0; i < grid.length+grid.width; i++)
         {
             if(path[i] == RIGHT)
@@ -99,7 +72,7 @@ Path CPUMiner::findBestPath(float& value)
             {
                 y++;
             }
-            pathValue += grid.data[x][y];
+            pathValue += grid.get(x,y);
         }
         if(pathValue > bestPathValue)
         {
@@ -144,7 +117,11 @@ void CPUMiner::permute(char* permutation, int usedRight, int usedDown, std::vect
     }
 }
 
-Grid CPUMiner::getGrid()
+// Need to initialize them to zero for the CPU
+void CPUMiner::initializeGrid()
 {
-    return grid;
+    Miner::initializeGrid();
+    std::cout << "Grid: [" << grid.length << "," << grid.width << "]" << std::endl;
+    memset(grid.data, 0, grid.length*grid.width*sizeof(float));
 }
+

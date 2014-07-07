@@ -9,15 +9,15 @@
 
 class InputFileWriter : public InputFileManager {
 public:
-    InputFileWriter(float baseX, float baseY, int numberOfMinerals, bool optimalPathEnabled);
+    InputFileWriter(float baseX, float baseY, int numberOfMinerals, bool optimalPathEnabled, std::string binFilename, std::string readableFilename);
 
-    void writeToFile(std::string filename, FILE_TYPE fileType);
+    void writeToBinFile(std::ofstream& binaryfile, Mineral& mineral);
+    void writeToReadableFile(std::ofstream& binaryfile, Mineral& mineral, bool base = false);
     static void printUsage();
 
 protected:
 
 private:
-    void writeFloat(std::ofstream& file, float& value);
 };
 
 #endif //INPUT_FILE_CREATOR_H

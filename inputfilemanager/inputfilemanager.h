@@ -5,25 +5,19 @@
 #include <ostream>
 #include "../common/miningdata.h"
 
-enum FILE_TYPE{
-    HUMAN_READABLE,
-    BINARY
-};
+#define DEBUG_MSG std::cout << "Got to here --> File: " << __FILE__ << " | Function: " << __FUNCTION__ << " | Line: " << __LINE__ << std::endl;
 
 class InputFileManager{
 public:
     InputFileManager();
-    InputFileManager(float baseX, float baseY);
+    virtual ~InputFileManager();
 
     static float fRand(float fMax) {return fRand(0.f, fMax); }
     static float fRand(float fMin, float fMax);
-    MiningData getMiningData();
-
-    // Test methods
-    void printMinerals();
+    MiningData* getMiningData();
 
 protected:
-     MiningData miningData;
+     MiningData * miningData;
 
 private:
 };

@@ -16,22 +16,20 @@ bool InputFileReader::parse(std::string filename)
           std::cerr << "Invalid file: it doesn't contain a multiple of 3 single point floats" << std::endl;
           return false;
       }
-
       file.seekg (0, std::fstream::beg); // 0 from the beginning
 
       // read the basex and basey
-      float baseX = readFloat(file);
-      float baseY = readFloat(file);
-      miningData.base = BaseStation(baseX, baseY);
-      readFloat(file); // The file then has the value for the basestation but can be ignored
+      miningData->baseX = readFloat(file);
+      miningData->baseY = readFloat(file);
+      miningData->nMinerals = (size-(3*sizeof(float)))/(sizeof(float)*3);
+      std::cout << "Number of minerals: " << miningData->nMinerals << std::endl;
+      miningData->data = (float*) malloc(miningData->nMinerals*3*sizeof(float));
+      readFloat(file); // The file then has the value for the basestation but can be ignored as its always 0
 
+      int i(0);
       while(file.tellg() != size)
       {
-          float x = readFloat(file);
-          float y = readFloat(file);
-          float value = readFloat(file);
-
-          miningData.minerals.push_back(Mineral(x,y,value));
+          miningData->data[i++] = readFloat(file);
       }
     }
     else

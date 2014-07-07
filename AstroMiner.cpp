@@ -2,6 +2,8 @@
 #include "cuda/deviceQuery.h"
 #include "inputfilemanager/reader/inputfilereader.h"
 #include "cpu/cpuminer.h"
+#include "cuda/gpuminer.h"
+#include "common/timer.h"
 
 #include <string>
 #include <iostream>
@@ -32,16 +34,31 @@ int main ( int argc, char **argv )
         std::cerr << "Unable to parse input file" << std::endl;
         return 1;
     }
-    MiningData miningData = reader.getMiningData();
-    // CPU MINER
-    CPUMiner cpuMiner(miningData, stepSize);
-    float bestPathValue(.0f);
-    Path bestPath = cpuMiner.findBestPath(bestPathValue);
-    std::cout << "****BEST PATH****" << std::endl;
-    std::cout << "PATH: "; bestPath.print();
-    std::cout << "VALUE: " << bestPathValue << std::endl;
-    std::cout << "*****************" << std::endl;
-    std::cout << "*****GRID****" << std::endl;
-    cpuMiner.getGrid().print();
-    std::cout << "**************" << std::endl;
+    std::cout << "OK!" << std::endl;
+
+    MiningData * miningData = reader.getMiningData();
+
+    Miner * gpuMiner = new GPUMiner(miningData, stepSize);
+    Miner * cpuMiner = new CPUMiner(miningData, stepSize);
+
+    Timer timer;
+    double time(.0);
+
+//    // CPU MINER
+    timer.start();
+    cpuMiner->performBinning();
+    time = timer.stop();
+    std::cout << "CPU Binning: " << time << std::endl;
+//    std::cout << "*****GRID****" << std::endl;
+    cpuMiner->getGrid().writeToFile("/home/harry/tmp/cpugrid.txt");
+//    std::cout << "**************" << std::endl;
+
+//    // GPU MINER
+    timer.start();
+    gpuMiner->performBinning();
+    time = timer.stop();
+    std::cout << "GPU Binning: " << time << std::endl;
+//    std::cout << "*****GRID****" << std::endl;
+    gpuMiner->getGrid().writeToFile("/home/harry/tmp/gpugrid.txt");
+//    std::cout << "**************" << std::endl;
 }
