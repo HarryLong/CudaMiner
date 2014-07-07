@@ -1,1 +1,0 @@
-/usr/bin/c++       CMakeFiles/inputFileWriter.dir/inputfilewriter.cpp.o CMakeFiles/inputFileWriter.dir/home/harry/workspaces/cuda-workspace/GPGPU2-Assignment/inputfilemanager/inputfilemanager.cpp.o  -o inputFileWriter -rdynamic 

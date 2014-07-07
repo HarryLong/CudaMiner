@@ -1,2 +1,0 @@
-/usr/bin/ar cr libcpu.a  CMakeFiles/cpu.dir/cpuminer.cpp.o CMakeFiles/cpu.dir/__/common/utils.cpp.o
-/usr/bin/ranlib libcpu.a
