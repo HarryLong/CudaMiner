@@ -1,0 +1,7 @@
+The input file reader serves as a parser for the input bianry data. It can be compiled in one of two ways:
+
+  1. As a standalone application which parses the output and writes the content to another file or standard output --> CMakeListsExec.txt
+
+  1. As a library to be used by another application for parsing input files --> CMakeListsLib.txt
+
+In order to compile the version needed, creaty a symbolic link names CMakeLists.txt to one of the two CMake files above, then run CMake as per usual.
