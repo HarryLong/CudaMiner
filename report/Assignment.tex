@@ -1,0 +1,399 @@
+\documentclass[11pt]{IEEEtran}
+
+\usepackage{fixltx2e}
+\usepackage{xfrac}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{hyperref}
+\let\labelindent\relax
+\usepackage{enumitem}
+\graphicspath{ {images/} }
+
+\begin{document}
+\title{GPGPU Programming Assignment 2014 \newline "The Asteroid Miner"}
+\author{Harry Long}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+The purpose of this research is to attempt to parallelize the "Asteroid Miner Problem" in which a drone must find the most efficient path to go from its drop position back to its base station in the minimum steps whilst collecting the most minerals possible. In an attempt to do so we first examine the problem and outline its parallelism potential. We then outline the algorithms developed to tackle the problem and benchmark the speed ups gained from running it on the GPU rather than its more sequential counter part - the CPU.\\[1\baselineskip] 
+Note: All code is freely accessible on GitHub: \url{http://github.com/HarryLong/CudaMiner}
+\end{abstract}
+
+% Introduction
+
+\section{Introduction}
+In order to understand the context, it is important to get to grips with the asteroid miner problem. The asteroid miner is a drone whose task it is to mine the rings of Saturn for minerals. The drone is released at a given position \textbf{P\textsubscript{drone}} on a 2 dimensional square grid. For simplicity, this point is referred to as the origin of the 2 dimensional grid (i.e \textbf{P\textsubscript{drone}= \{0,0\}}). The aim is for the drone to reach it's base station \textbf{P\textsubscript{base}} in the minimum amount of moves whilst collecting the maximum amount of minerals. The drone can only move in step size increments in 2 directions: horizontally to the right and vertically downwards. At each step location, the drone's tractor beam can pick up minerals surrounding the drone if the the distance of the mineral from the drone is less than or equal to half the step size.\\
+\begin{figure}[h]
+\caption{Grid layout}
+\centering
+\includegraphics[width=0.5\textwidth]{grid}
+\end{figure}
+
+The mineral data is presented as a binary file broken down into triplets of single precision floating point values \textbf{x, y and v} where:
+\begin{itemize}
+  \item \textbf{x}: x position of the mineral on the grid.
+  \item \textbf{y}: y position of the mineral on the grid.
+  \item \textbf{v}: value of the given mineral.
+\end{itemize}
+The only exception is the first triplet of the file which represents \textbf{P\textsubscript{base}}, the location of the base station (with a value of zero). 
+
+Finding the optimal path through the grid is a two step process:
+\begin{enumerate}
+  \item \textbf{Binning}: During the binning process, each mineral must be processed and matched to its closest stop location. During this stage, minerals more distant than a half step size from their closest stop location can be discarded ad they are unreachable.
+  \item \textbf{Find best path}: Now that each step location has a matching value, it is necessary to find the optimal path. A path is deemed optimal if:
+  \begin{itemize}
+  \item The number of steps to reach the base station is the minimum possible.
+  \item The aggregated value of all minerals collected when the drone reaches the base station is more than (or equal to) all other possible paths the drone can follow.\\
+  \end{itemize}
+\end{enumerate}
+
+The aim of this paper is to find an algorithm to optimize this two step process to run on the GPU rather than the ordinary CPU. The language we use is CUDA which, once compiled, runs solely on Nvidia GPUs. The problem is suited to run on a GPU as algorithms can be found in which the problem can be split into multiple work loads and ran in parallel. More on this in the "Design and Implementation" section
+
+\section{Design and Implementation}
+In this section we will describe the algorithms used for the two steps of the problem: the binning and finding the optimal path. Note that reading the raw data from the input file is performed on the CPU prior to the binning.
+\subsection{Binning}
+The purpose of the binning stage is to match a mineral value to each stop location on the grid. For this, each mineral location  \textbf{P\textsubscript{mineral}} must be processed and matched to the closest stop location \textbf{P\textsubscript{stop}} accessible by the drone. Once \textbf{P\textsubscript{stop}} is found, it is necessary to calculate the distance \textbf{D\textsubscript{mineral}} from \textbf{P\textsubscript{mineral}}  to \textbf{P\textsubscript{stop}}. Once \textbf{P\textsubscript{mineral}} is calculated one of two possibilities can occur:
+
+  \begin{itemize}
+  \item \textbf{If $ D\textsubscript{mineral} \leq \sfrac{stepsize}{2} $} : Add the minerals value to its corresponding \textbf{P\textsubscript{stop}}
+  \item \textbf{If $ D\textsubscript{mineral} > \sfrac{stepsize}{2} $} : Discard the mineral as it is unreachable.\\
+  \end{itemize}
+
+\textit{\textbf{Algorithm}}\\[1\baselineskip] 
+The mineral data from the input file with the base station data removed is copied onto the GPU's global memory after which a thread is spawned to deal with each mineral. Each thread then:
+  \begin{itemize}
+  \item Reads it's corresponding mineral data triplet (x,y,v) 
+  \item Calculates it's corresponding closest stop location
+  \item Calculates whether or not the mineral is reachable and then:
+    \begin{itemize}
+	\item \textbf{if reachable}: Adds the mineral's value to its corresponding stop location in the pre-allocated grid.
+	\item \textbf{if unreachable}: Discards the mineral \\
+    \end{itemize}
+  \end{itemize}
+
+%Data Layout
+\textit{\textbf{Data layout}}\\[1\baselineskip] 
+Two pieces of data are allocated on the GPU:\\
+	\begin{enumerate}
+% MINERAL DATA
+	\item Mineral data: refer to figure ~\ref{Mineral Data Layout}\\
+	\begin{figure*}[ht]
+	  \begin{center}	
+	  \caption[Mineral data layout]{Memory layout of the mineral data}
+	  \label{Mineral Data Layout}
+	    \begin{tabular}{|p{4cm}|p{12cm}|}
+  	    \hline
+  	    Representation & Array of floats\\
+  	    \hline
+  	    Type of memory used & Global memory\\
+  	    \hline
+  	    Size & $ n\textsubscript{minerals} * sizeof(float) * 3 $.\\
+  	    \hline
+  	    Initialization & Allocated and data copied across from host\\
+  	    \hline
+  	    Optimizations comments & As each floating point value is read only once from this array, there would be no optimization in copying this data to a faster access memory medium (e.g shared memory).\\
+  	    \hline
+  	    \end{tabular}\newline
+  	  \end{center}
+  \end{figure*}
+  
+% GRID DATA
+	\item Grid data: refer to figure ~\ref{Grid Data Layout}\\\newline
+	  \begin{figure*}[ht]
+	    \begin{center}	
+	    \caption[Grid data layout]{Memory layout of the Grid data}
+	    \label{Grid Data Layout}
+	      \begin{tabular}{|p{4cm}|p{12cm}|}
+  	    \hline
+  	    Representation & Although conceptually a 2-d array, for efficiency this is represented in memory as a flat array of floats\\
+  	    \hline
+  	    Type of memory used & Global memory\\
+  	    \hline
+  	    Size & $ (grid\textsubscript{width}+1) * (grid\textsubscript{length}+1) * sizeof(float) $.\\
+  	    \hline
+  	    Initialization & Allocated from host. All elements of array set to 0 (using cudamemset). This is essential as it is not guaranteed that each index will be processed (possibility that no mineral will be close enough to a given stop location) and when an index is processed, its value is incremented rather than explicitly set. \\
+  	    \hline
+  	  Optimizations comments & As different minerals can be linked to the same stopping point it is possible for multiple threads to attempt to access the same location in global memory. For this reason an atomic add is used which, unfortunately, slows performance. \\
+  	    \hline
+  	    \end{tabular}
+  	  \end{center}	
+  	  \end{figure*}
+  	\end{enumerate}
+
+%Thread layout
+\textit{\textbf{Thread layout}}\\[1\baselineskip] 
+Refer to figure ~\ref{Binning thread layout}	for a detailed description of the thread layout on the GPU for the binning.
+	 
+	  \begin{figure*}[ht]
+	    \begin{center}	
+	    \caption[Binning thread layout]{Thread layout for the binning}
+	    \label{Binning thread layout}
+	    \begin{tabular}{|p{4cm}|p{12cm}|}
+		\hline
+		Block size & 256 * 1 * 1\\
+		\hline
+		Thread count & Number of minerals\\
+		\hline
+		Accessing mineral element & 	(blockIdx.x * blockDim.x) + threadIdx.x * 3\\		    		\hline
+		Accessing grid element & (grid\textsubscript{length} * (grid\textsubscript{x}+1)) + (grid\textsubscript{y}+1)\\
+		\hline
+		\end{tabular}
+	  \end{center}
+	  \end{figure*}
+
+\subsection{Accumulating}
+After the binning is performed, we have a weighted grid where, for each stopping point, we have its corresponding mineral value. What is needed now is to find the minimum path which would result in the most mineral gain and result in the drone being at its base station. \\
+
+\textit{\textbf{Algorithm}}\\[1\baselineskip] 
+A way to do so, which also spawns parallelizing potential, is to create an accumulated grid. To create an accumulated grid, the initial grid must be iterated over through its diagonals starting with the diagonal passing through through point [0,0]. At each intersecting stopping point on the diagonal we add the value of the maximum between the two unique points from which the point can be accessed (i.e the point directly to the left and the point directly up).
+
+\begin{figure}[ht]
+\caption[Accumulated grid]{Accumulated grid with diagonals}
+\label{Accumulated grid}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{accumulatedgrid}
+\end{center}
+\end{figure}
+
+Using figure ~\ref{Accumulated grid} as a reference, to calculate the aggregated value of point C would need to add to its current value the maximum between points A and B. I.e: \\[1\baselineskip]
+$ C\textsubscript{aggregated-value} = C\textsubscript{value} + max(A\textsubscript{aggregated-value}, B\textsubscript{aggregated-value}) $\\
+
+Although the diagonals \textbf{must} be processed sequentially, the aggregated value of each stopping point on the diagonal can be calculated in parallel. The number of threads which can be spawned increased as we reach the center diagonal, is at its maximum on the center diagonal, then decreases again until we reach the final diagonal. For any diagonal, the number of threads N\textsubscript(threads) which can be spawned can be calculated as follows:\\[1\baselineskip]
+$ N\textsubscript{threads} = (diagonal\textsubscript{current} +1) - (2 * max(0, diagonal\textsubscript{current} - diagonal\textsubscript{center})) $ \\
+
+Using the grid from figure \ref{Accumulated grid}, we get: 
+  \begin{center}	
+  \captionof{table} {Spawnable threads per diagonal}
+    \begin{tabular}{|p{3cm}|p{3cm}|}
+    \hline
+    \textbf{diagonal\textsubscript{current}}  & \textbf{N\textsubscript{threads}}\\
+    \hline
+    0 & 1\\
+    \hline
+    1 & 2 \\
+	\hline
+    2 & 3 \\
+	\hline
+    3 & 4 \\
+	\hline
+    4 & 5 \\
+	\hline
+    5 & 4 \\
+	\hline
+    6 & 3 \\
+	\hline
+    7 & 2 \\
+	\hline
+    8 & 1 \\
+    \hline 
+	\end{tabular}
+  \end{center}
+%Data Layout
+\textit{\textbf{Data layout}}\\[1\baselineskip] 
+No new data usage is necessary. As it is necessary to process the diagonals sequentially, the initial grid can simply be overwritten.\\ The left-side and top-side padding can be better understood now: it is an optimization mechanism to prevent costly branching code on the GPU. The stopping points for which X = 0 and Y = 0 have only one point from which they can be accessed (top and left respectively), therefore branching would be necessary on the GPU to check whether X = 0 or Y = 0 for the current point. All padding points are set to a negative value and therefore:
+\begin{itemize}
+\item Each valid stopping point (excluding padding) can access a valid memory location for the stopping point straight above and straight to the left.
+\item A padding point will \textbf{never} be chosen as the best of the two source points as all valid points have a corresponding value of at least zero.\\ 
+\end{itemize}
+Note that for optimization purposes, the value for the padding was chosen as -1.498. The reason for this is that it can be set with a more efficient cudaMemset using 0xbf as the byte value. This is much more efficient that using the costly alternative, a memory copy. 
+
+%Thread layout
+\textit{\textbf{Thread layout}}\\[1\baselineskip] 
+Refer to figure ~\ref{Grid accumulation thread layout} for a detailed description of the thread layout on the GPU for the grid accumulating.
+  \begin{figure*}[ht]
+  \caption[Accumulating thread layout]{Thread layout for grid accumulating}
+  \label{Grid accumulation thread layout}
+  \begin{center}	
+    \begin{tabular}{|p{4cm}|p{12cm}|}
+	\hline
+	Block size & 256 * 1 * 1\\
+	\hline
+	Thread count & See above\\
+	\hline
+	Accessing corresponding memory element grid\textsubscript{x} &( blockIdx.x * blockDim.x) + threadIdx.x) + max(0, diagonal\textsubscript{current} - diagonal\textsubscript{center})\\
+	\hline
+	Accessing corresponding memory element grid\textsubscript{y} & (diagonal\textsubscript{current} - ((blockIdx.x * blockDim.x) + threadIdx.x) + max(0, diagonal\textsubscript{current} - diagonal\textsubscript{center})\\
+	\hline
+	\end{tabular}
+   \end{center}
+   \end{figure*}
+
+% ALGORITHM 2
+\subsection{Second implementation on the GPU}
+In an attempt to tackle the main bottleneck of this algorithm - the atomic add during the binning, an algorithm was developed which differed to this one in the following ways:
+	\begin{itemize}
+		\item Rather than having a single grid, each thread has its own grid. 
+		\item When a thread calculated its corresponding grid location, it sets the value on its own grid (no atomic add necessary).
+		\item Once each thread has finished processing it's mineral and set its corresponding grid value, a parallel reduction of each threads grid occurs in order to retrieve the final grid.\\
+	\end{itemize}
+	A problem quickly became apparent with this implementation however: the memory usage quickly becomes unmanageable even for reasonable small grid sizes (see table 3 below).
+  \begin{center}	
+  \captionof{table}{Binning Algorithm 2 data usage based on grid size (with fixed mineral count of 1000)}
+    \begin{tabular}{|p{2cm}|p{4cm}|}
+  	\hline
+	\textbf{Grid width} & \textbf{Size (in MB)} \\
+	\hline
+	100	& 38.1468\\
+	\hline
+	200	& 152.5872\\
+  	\hline
+	300	& 343.3212\\
+  	\hline
+	400	& 610.3488\\
+  	\hline
+	500	& 953.67\\
+  	\hline
+	600	& 1373.2848\\
+	\hline
+	700	& 1869.1932\\
+  	\hline
+	800	& 2441.3952\\
+  	\hline
+	900	& 3089.8908\\
+  	\hline
+	1000	 & 3814.68\\
+  	\hline
+  	\end{tabular}
+  \end{center}
+As a result of this huge memory usage, this second implementation was dropped in favour of the first.
+
+\section{Results and Discussion}
+The main purpose of running this problem on the highly parallel GPU architecture was to gain performance other running it on the more sequential equivalent - the CPU. In this section we will outline the performance gain, if any, as well as discuss the testing that was performed to ensure our findings were accurate.
+
+\subsection{Results}
+In order to grasp the performance increase of running the problem on the GPU the algorithms were also implemented to run on a regular CPU. For reference, below are the CPU and GPU specifications of the machine on which the benchmark tests were performed:\\
+  \begin{center}	
+  \captionof{table}{CPU specifications}
+    \begin{tabular}{|p{3cm}|p{4cm}|}
+	\hline    	
+    	Name & Intel i7 4th generation\\
+    	\hline
+    	Architecture & 64 bit\\
+    	\hline
+    	Cores & 4\\
+    	\hline
+    	Threads per core & 2\\
+    	\hline
+  	\end{tabular}
+
+  \captionof{table}{GPU specifications}
+    \begin{tabular}{|p{3cm}|p{4cm}|}
+	\hline    	
+    	Name & Nvidia GTX 760\\
+    	\hline
+    	Number of cores & 1152 \\
+    	\hline
+    	Global memory size & 2048 MB\\
+    	\hline
+  	\end{tabular}
+  \end{center}	
+
+As stated in the previous section, the algorithm is split in two parts: the binning and the accumulation. The benchmarking was performed for both parts separately.\\
+
+\textbf{\textit{Benchmarking the binning}}\\
+For the binning, the number of threads that are spawned is equal to the number of raw minerals. Therefore, we expect the performance gained by running it on the GPU to increase with the number of minerals passed through as input. In order to test this, a benchmarking application was implemented which gradually increases the number of minerals passed as input whilst keeping the grid size to a constant size of 250 by 250. This benchmarking application performs 5 runs for each configuration and calculates the average run time based on the 5 separate runs. This is to prevent any anomalies in the data caused by, for example, heavy CPU or GPU usage by a third-party application during the benchmarking tests.\\
+
+\begin{figure*}[ht]
+\begin{center}
+\caption[grid]{Binning aggregation benchmark}
+\label{Binning benchmark}
+\includegraphics[width=0.8\textwidth]{binning_benchmark}
+\end{center}
+\end{figure*}
+
+Based on the results (plotted in figure ~\ref{Binning benchmark}) we can see that there is a significant increase in performance when the binning is performed on the GPU. The GPU overtakes the CPU in terms of performance as soon as we pass approximately 70000 minerals. Before this point, the overhead of allocating memory on the GPU and copying data to and from the GPU outweighs that of the performance increase obtained from performing the actual number crunching on the GPU. As expected, the speed up increases with the number of minerals which are to be placed on the grid. The maximum speed up occurs for the maximum number of minerals tested - 560'000. With this number of minerals, the GPU implementation runs almost 3 times faster.\\
+
+\begin{figure*}[ht]
+\begin{center}
+\caption[grid]{Binning Timing Breakdown}
+\label{Binning Timing Breakdown}
+\includegraphics[width=0.9\textwidth]{binning_breakdown}
+\end{center}
+\end{figure*}
+
+In order to see what is taking the most GPU time, a breakdown was performed of all the kernel calls, memory allocations and memory copies which constitute the bulk of the GPU binning algorithm. Based on this data (refer to figure ~\ref{Binning Timing Breakdown}), we can rank them in order of resource usage:
+\begin{enumerate}
+\item \textbf{Mineral allocation: } Allocation of the grid in the GPU's global memory.
+\item \textbf{Grid padding: } Setting the padding indices of the grid in GPU's global memory,
+\item \textbf{Mineral copy: } Copy of the raw mineral data into GPU's global memory,
+\item \textbf{Binning kernel: } The kernel call in which the binning is performed.
+\item \textbf{Grid memset: } All grid values are set to 0 (except for the padding indices),
+\item \textbf{Grid allocation: } The grid is allocated on GPU's global memory.
+\item \textbf{Mineral free: } In order to re-use the space previously taken by the mineral data and no longer needed once the grid is created, the memory it reserved is freed.
+\end{enumerate}
+
+
+\textbf{\textit{Benchmarking the Aggregation}}\\
+For the aggregation, the maximum number of threads which can be spawned is equal to the number of stopping points which intersect with the center diagonal. Therefore, the number of spawned threads increases with the size of the grid. As a result of this, we expect the performance gain of the GPU to increase with the size of the grid. In order to test this, the same benchmarking application was configured to gradually increases the grid size whilst keeping the number of mineral count to a constant 5000. As for the binning benchmarking, the results are averaged on 5 separate runs to prevent statistical anomalies.\\
+
+\begin{figure*}[ht]
+\begin{center}
+\caption[grid]{Grid aggregation benchmark}
+\label{Grid aggregation benchmark}
+\includegraphics[width=0.8\textwidth]{aggregation_graph}
+\end{center}
+\end{figure*}
+
+Based on the results (plotted in figure ~\ref{Grid aggregation benchmark}) we can see that there is a significant increase in performance when the aggregation is run on the GPU. The GPU overtakes the CPU in terms of performance as soon as we use a grid size with over 1500 stopping points (vertically and horizontally).
+As expected, the speed up continues to increase with the size of the grid. The maximum speed up obtained was for the largest grid size tested (width and length = 19000). In this configuration, the GPU implementation runs almost 2.5 times faster.\\
+
+Similarly to the binning benchmarking, a timing breakdown of the various elements which constitute the GPU algorithm was performed. Based on this data (refer to figure ~\ref{Grid aggregation Breakdown}), we can rank them in order of resource usage:
+\begin{enumerate}
+\item \textbf{The accumulation kernel: } This is the kernel in which the data is processed and the accumulation grid is built.
+\item \textbf{Grid retrieval: } This is when the final accumulated grid is copied from the device back to the host.
+\end{enumerate}
+
+\begin{figure*}[ht]
+\begin{center}
+\caption[grid]{Grid accumulation breakdown}
+\label{Grid accumulation Breakdown}
+\includegraphics[width=0.8\textwidth]{aggregation_breakdown}
+\end{center}
+\end{figure*}
+
+\subsection{Testing}
+In order to ensure the calculated optimal path is correct it is essential to perform some tests. Two types of tests were performed to ensure the algorithm worked as planned: unitary tests on individual core components of the algorithm and results comparison between the results obtained from the CPU and the GPU.\\
+
+\textbf{\textit{Comparing results from the CPU and the GPU}}\\
+As discussed in the Results section, a benchmarking application was developed in order to compare speed ups with different input minerals and grid size configurations. In order to test the results at the same time, each run (5 runs per configuration) also ensured the calculated optimal path returned by the CPU run and the GPU run were identical.\\
+
+A problem which becomes apparent with the above test if is both the CPU and GPU output the same incorrect optimal path. There needs to be a way of ensuring that the calculated optimal path is not only identical for the CPU and GPU code, but also correct. In order to do so a functionality was implemented in the testing application to generate an input file with a preconfigured optimal path. That is, given the step size, the minerals are placed in such a way that the optimal path will always follow the diagonal of the grid (right, left, right, left, etc...). By using this pre-configured input file along with the comparison between the CPU and GPU outputs we can ensure that:
+\begin{itemize}
+	\item The CPU and GPU generate the same optimal path.
+	\item The generated path is correct.\\
+\end{itemize}
+
+\textbf{\textit{Unit testing}}\\
+A unitary test was developed in order to test the two core functions of the application - the binning and the aggregating.\\
+To test the binning, it is a simple matter of ensuring each mineral is placed in the correct grid index. To ensure this, a pre-configured optimal path input file is used with the minimum number of minerals (one for each stopping point on the diagonal). The resulting binned grid is then written to a file for examination. The test is deemed successful if only the grid indices on the diagonals have values other than zero.\\
+To test the grid aggregation a different unitary test was developed: The grid which is passed to the grid accumulation kernel has all values set to 0 except the stopping point at index [0,0] which is set to 1. The resulting accumulated grid is then written to a file for examination. The test is deemed successful if each stopping point on the grid index is the sum of the stopping point straight above and straight below. Note that, in order for this test to work, the padding points were exceptionally set to 0 (rather than -1.498). Please refer to figure ~\ref{Accumulated Grid Test} for a successful accumulated grid test for a 4 by 4 grid. \\
+
+
+\begin{figure}[ht]
+\begin{center}
+\caption{Successful Accumulated Grid Test}
+\label{Accumulated Grid Test}
+\includegraphics[width=0.5\textwidth]{gridaccumulationtest}
+\end{center}
+\end{figure}
+
+\section{Conclusions and Future Work}
+
+As seen in the results section, the GPU implementation lead to a significant increase in performance. This performance increase was notably superior for the binning over the grid accumulation. The reason for this is most definitely because a lot of the work for the grid accumulation needs to be performed sequentially (i.e each diagonal). The binning, however, is greatly suited to high parallelism as each individual thread can deal with a single mineral.\\
+It would potentially be possible to increase the general performance by finding ways to remove the main bottlenecks of the algorithm:
+\begin{itemize}
+\item The atomic add during the binning.
+\item Whilst creating the accumulated grid, it is possible for two threads to attempt to access (for read purposes) the same grid index. 
+\item The branching on the GPU during the binning stage: When processing all the minerals for binning purposes, the GPU tests whether of not the mineral is reachable. Depending on the outcome of this test, the GPU either adds the mineral's value or ignores it as it is deemed unreachable. If a way is found to avoid this branching, performance could be improved yet further.
+\end{itemize}
+
+\section{Aknowledgements}
+In no particular order I would like to thank:
+\begin{itemize}
+\item The University of Cape Town's computer science department for putting an Nvidia GPU at my disposal to play with. Without which this work would not be possible.
+\item Chris Laider for his support throughout the course.
+\item John Stone, Manuel Ujaldón, Bruce Merry \& Simon Perkins for their invaluable talks on the subject.
+\end{itemize}
+
+\end{document}
