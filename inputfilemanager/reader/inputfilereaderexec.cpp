@@ -2,16 +2,35 @@
 
 #include "inputfilereader.h"
 
-#define FILENAME_ARG_IDX 1
+#define ARG_INPUTFILE "-inputfile"
+
+void printUsage()
+{
+  std::cout << "Usage: ./inputfilereader -inputfile <filename>" << std::endl;
+}
+
 int main(int argc, char *argv[])
 {
-    if(argc != 2)
+    char * filename = NULL;
+    int argIdx(1);
+    while(argIdx < argc-1)
     {
-        std::cout << "Usage: readinputFile <input_file_name>" << std::endl;
-        return 1;
+      if(std::string(argv[argIdx]) == ARG_INPUTFILE)
+      {
+        filename = argv[argIdx+1];	  
+      }
+      else
+      {
+         printUsage();
+         return 1;
+      }
     }
 
-    char* filename = argv[FILENAME_ARG_IDX];
+    if(filename == NULL)
+    {
+        printUsage();
+        return 1;
+    }
 
     std::cout << "Reading in input file: " << filename << std::endl;
     

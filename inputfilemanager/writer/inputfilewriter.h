@@ -14,6 +14,8 @@ public:
     void writeToBinFile(std::ofstream& binaryfile, Mineral& mineral);
     void writeToReadableFile(std::ofstream& binaryfile, Mineral& mineral, bool base = false);
     static void printUsage();
+    static std::string generateFilename(float baseX, float baseY, int nMinerals, bool optimalPathEnabled);
+    static std::string to_string(const float& num, const int& ndigits);
 
 protected:
 

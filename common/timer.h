@@ -8,7 +8,7 @@ class Timer{
 
 public:
     void start();
-    double stop();
+    void stop(double& time);
 
 private:
     std::clock_t startTime;

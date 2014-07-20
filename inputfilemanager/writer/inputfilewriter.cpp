@@ -34,7 +34,7 @@ InputFileWriter::InputFileWriter(float baseX, float baseY, int numberOfMinerals,
         int gridLength = ceil(baseX/stepSize)+1;
         int gridWidth = ceil(baseY/stepSize)+1;
 
-        int minimumNumberOfMinerals = (fmin(gridWidth,gridLength)-1)*2+1; // +1 for mineral at point [0,0]
+        minimumNumberOfMinerals = (fmin(gridWidth,gridLength)-1)*2+1; // +1 for mineral at point [0,0]
         if(numberOfMinerals < minimumNumberOfMinerals)
         {
             numberOfMinerals = minimumNumberOfMinerals;
@@ -116,48 +116,51 @@ void InputFileWriter::writeToReadableFile(std::ofstream& file, Mineral& mineral,
 }
 
 // TEST MAIN
-#define REQUIRED_ARGS_CNT 6
-#define BASEX_ARG_IDX 1
-#define BASEY_ARG_IDX 2
-#define ASTROCOUNT_ARG_IDX 3
-#define FILENAME_ARG_IDX 4
-#define PRESET_OPTIMAL_PATH_ARG_IDX 5
+#define ARG_BASEX           "-basex"
+#define ARG_BASEY           "-basey"
+#define ARG_MINERALCOUNT    "-n"
+#define ARG_OPTIMALPATH     "-optimalpath"
+#define ARG_OUTPUTDIR       "-outputdir"
 
-#define PRESET_OPTIMAL_PATH_ARG "--preset-optimal-path="
-
-#define MAX_MINERALS_PRINT 100
+#define MAX_MINERALS_PRINT  100
+#define F_UNSET             -1.f
+#define I_UNSET             -1
 
 int main(int argc, char *argv[])
 {
-    if(argc != REQUIRED_ARGS_CNT)
-    {
-        InputFileWriter::printUsage();
-        return 1;
-    }
-
-    float baseX((float) atof(argv[BASEX_ARG_IDX]));
-    float baseY((float) atof(argv[BASEY_ARG_IDX]));
-
-    int nMinerals(atoi(argv[ASTROCOUNT_ARG_IDX]));
-    std::string baseFilename(argv[FILENAME_ARG_IDX]);
-    std::string binFilename(baseFilename);
-    binFilename += BINARY_FILE_SUFFIX;
-    std::string readableFilename(baseFilename);
-    readableFilename += READABLE_FILE_SUFFIX;
-
     bool optimalPathEnabled(false);
+    float baseX(F_UNSET), baseY(F_UNSET);
+    int nMinerals(I_UNSET);
+    char * outpurDir = NULL;
 
-    // Figure out whether optimal path is turned on or off
+    int argIdx(1);
+    while(argIdx < argc)
     {
-        int constantArgPartLength(std::string(PRESET_OPTIMAL_PATH_ARG).length());
-
-        std::string rawOptimalPathArg(argv[PRESET_OPTIMAL_PATH_ARG_IDX]);
-        std::string onOff(rawOptimalPathArg.substr(constantArgPartLength));
-
-        if(onOff == "on" || onOff == "ON" || onOff == "yes" || onOff == "YES")
+        if(std::string(argv[argIdx]) == ARG_BASEX)
+        {
+            baseX = (float) atof(argv[argIdx+1]);
+            argIdx += 2;
+        }
+        else if(std::string(argv[argIdx]) == ARG_BASEY)
+        {
+            baseY = (float) atof(argv[argIdx+1]);
+            argIdx += 2;
+        }
+        else if(std::string(argv[argIdx]) == ARG_MINERALCOUNT)
+        {
+            nMinerals = atoi(argv[argIdx+1]);
+            argIdx += 2;
+        }
+        else if(std::string(argv[argIdx]) == ARG_OPTIMALPATH)
+        {
             optimalPathEnabled = true;
-        else if(onOff == "off" || onOff == "OFF" || onOff == "no" || onOff == "NO")
-            optimalPathEnabled = false;
+            argIdx += 1;
+        }
+        else if(std::string(argv[argIdx]) == ARG_OUTPUTDIR)
+        {
+            outpurDir = argv[argIdx+1];
+            argIdx += 2;
+        }
         else
         {
             InputFileWriter::printUsage();
@@ -165,13 +168,25 @@ int main(int argc, char *argv[])
         }
     }
 
-    std::cout << "Creating new input file with: " << std::endl;
+    if(baseX == F_UNSET || baseY == F_UNSET || nMinerals == I_UNSET || outpurDir == NULL)
+    {
+        InputFileWriter::printUsage();
+        return 1;
+    }
+
+    std::string filename(InputFileWriter::generateFilename(baseX, baseY, nMinerals, optimalPathEnabled));
+    std::string binFilename(std::string(outpurDir)+"/"+filename+"_bin");
+    std::string readableFilename(std::string(outpurDir)+"/"+filename+"_readable");
+
+    std::cout << "**********************ASTRO MINER INPUT FILE GENERATOR**********************" << std::endl;
+    std::cout << "----Configuration" << std::endl;
     std::cout << "Base X: " << baseX << std::endl;
     std::cout << "Base Y: " << baseY << std::endl;
     std::cout << "Number of minerals: " << nMinerals << std::endl;
     std::cout << "Output binary file: " << binFilename << std::endl;
     std::cout << "Output readable file: " << readableFilename << std::endl;
     std::cout << "Preset optimal path trigger: " << (optimalPathEnabled ? "on" : "off") << std::endl;
+    std::cout << "----" << std::endl;
 
     InputFileWriter ifWriter(baseX, baseY, nMinerals, optimalPathEnabled, binFilename, readableFilename);
     if(nMinerals < MAX_MINERALS_PRINT)
@@ -183,5 +198,24 @@ int main(int argc, char *argv[])
 
 void InputFileWriter::printUsage()
 {
-    std::cout << "Usage: inputFileCreator <baseX> <baseY> <number_of_asteroids> <output_file_name> <--preset-optimal-path=on|off>" << std::endl;
+    std::cout << "Usage: inputFileCreator [OPTIONS] -basex <basex> -basey <basey> -n <mineral_count> -outputdir <outputdir> " << std::endl << std::endl;
+    std::cout << "Where OPTIONS: " << std::endl;
+    std::cout << "-optimalpath         " << "For testing purposes: minerals are placed along the diagonal with a very big value in order to preset an optimal path." << std::endl;
+}
+
+std::string InputFileWriter::generateFilename(float baseX, float baseY, int nMinerals, bool optimalPathEnabled)
+{
+    std::stringstream ss (std::stringstream::in | std::stringstream::out);
+    ss << "BX" << baseX << "_BY" << baseY << "_N" << nMinerals << "_OP" << (optimalPathEnabled ? "on" : "off");
+    return ss.str();
+}
+
+std::string InputFileWriter::to_string(const float& num, const int& ndigits)
+{
+    std::stringstream ss (std::stringstream::in | std::stringstream::out);
+    ss << num;
+    std::string value(ss.str());
+    if(value.size() > ndigits)
+        value.resize(ndigits);
+    return value;
 }

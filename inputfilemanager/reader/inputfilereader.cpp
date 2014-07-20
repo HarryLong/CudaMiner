@@ -21,9 +21,10 @@ bool InputFileReader::parse(std::string filename)
       // read the basex and basey
       miningData->baseX = readFloat(file);
       miningData->baseY = readFloat(file);
-      miningData->nMinerals = (size-(3*sizeof(float)))/(sizeof(float)*3);
-      std::cout << "Number of minerals: " << miningData->nMinerals << std::endl;
-      miningData->data = (float*) malloc(miningData->nMinerals*3*sizeof(float));
+      miningData->size = (size-3*sizeof(float)); // remove the 3 floats for the base station
+      miningData->nMinerals =  miningData->size/(sizeof(float)*3);
+      miningData->data = (float*) malloc(miningData->size);
+
       readFloat(file); // The file then has the value for the basestation but can be ignored as its always 0
 
       int i(0);
@@ -34,7 +35,7 @@ bool InputFileReader::parse(std::string filename)
     }
     else
     {
-        std::cout << "Unable to open file: " << filename;
+        std::cout << "Unable to open file: " << filename << std::endl;
         return false;
     }
     file.close();
