@@ -1,0 +1,12 @@
+***********************************************************
+*            GPGPU2 ASSIGNMENT - ASTROMINER               *
+***********************************************************
+AstroMiner implementation to run on both CPU and GPU.
+
+-- How to compile?
+CMake is used to create the necessary makefiles. Please install CMake and execute the following in the main directory:
+> CMake CMakeLists.txt
+> make
+
+-- How to run?
+In order to run, simply execute AstroMiner with the necessary options (run with no options to see available options) 
